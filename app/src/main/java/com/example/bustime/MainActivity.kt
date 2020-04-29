@@ -6,23 +6,38 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 //git test
 class MainActivity : AppCompatActivity() {
 
 
-    class  Myadapter(fm: FragmentManager,private  val fragmentList: List<Fragment>):FragmentStatePagerAdapter(fm,
+    class  Myadapter(fm: FragmentManager, private val fragmentList: MainActivity):
+        FragmentPagerAdapter(fm,
         BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
 
 
         override fun getItem(position: Int): Fragment {
-            return  fragmentList[position]
+            when(position){
+                0-> {return toukou()}
+                else->{return gekou()}
+            }
+            // fragmentList[position]
         }
 
         override fun getCount(): Int {
-            return fragmentList.size
+            return 2
         }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            when(position){
+                0->{return "立命館大学行き"}
+                else->{return "南草津駅行き"}
+            }
+
+        }
+
 
     }
 
@@ -33,23 +48,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val fragmentList= arrayListOf<Fragment>(
-            toukou(),
-            gekou()
 
-        )
 
-        val adapter=Myadapter(supportFragmentManager,fragmentList)
+
+        val adapter=Myadapter(supportFragmentManager,this)
         pager.adapter=adapter
+        tabs.setupWithViewPager(pager)
 
-        gekou.setOnClickListener{
-            pager.currentItem+=1
-        }
-        toukou.setOnClickListener{
-            pager.currentItem-=1
-        }
+
+
 
     }
+
 
 
 
