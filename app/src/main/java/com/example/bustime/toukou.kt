@@ -18,7 +18,7 @@ import kotlin.concurrent.timer
 /**
  * A simple [Fragment] subclass.
  */
-class toukou : Fragment() {
+class toukou: Fragment() {
 
 
     var sethour=21
